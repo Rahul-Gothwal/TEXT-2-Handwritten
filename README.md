@@ -4,6 +4,9 @@ This is a mobile app which convert text to *handwritten text* and generate a PDF
 
 This app can come handy when you have to copy paste your assignment from internet but don't wanna waste your time writing it all down.
 
+![Issue](https://img.shields.io/github/issues/Rahul-Gothwal/TEXT-2-Handwritten)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&logo=github)](https://github.com/Rahul-Gothwal/TEXT-2-Handwritten/pulls)
+
 ## How to use
 * Copy the text you want to convert to handwritten
 * Open the application and paste you text
@@ -20,7 +23,7 @@ Currently this app is generating corrupted PDF and we are working on this issue,
 * Download [Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3&hl=en_IN)
 * [Download](https://github.com/Rahul-Gothwal/TEXT-2-Handwritten/archive/master.zip) zip file of this repo
 * Extract the zip into a folder of your choice
-* Now from pydroid open than folder and Application.py file
+* Now from pydroid open that folder and Application.py file
 * In terminal use these commands (one time only)
   * `pip install kivy`
   * `pip install fpdf`
