@@ -18,7 +18,6 @@ from kivy.uix.filechooser import FileChooserIconView
 import pickle
 import os
 from PIL import Image
-from kivy.uix.checkbox import CheckBox
 
 #For Screen colour
 Window.clearcolor=(1,1,1,1)
@@ -26,7 +25,7 @@ Window.clearcolor=(1,1,1,1)
 #variable for different screens
 w,h=Window.size
 
-BG = Image.open("myfont/bg.png")
+BG = Image.open("Font/base.png")
 sizeOfSheet = BG.width
 gap, _ = 0, 0
 allowedChars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM,.-?!() 1234567890'
@@ -37,7 +36,7 @@ def writee(char):
         pass
     else:
         char.lower()
-        cases = Image.open("myfont/%s.png" % char)
+        cases = Image.open("Font/%s.png" % char)
         BG.paste(cases, (gap, _))
         size = cases.width
         gap += size
@@ -65,9 +64,9 @@ def letterwrite(word):
             elif letter == ',':
                 letter = 'comma'
             elif letter == '(':
-                letter = 'braketop'
+                letter = 'braketopn'
             elif letter == ')':
-                letter = 'braketcl'
+                letter = 'braketcls'
             elif letter == '-':
                 letter = 'hiphen'
             writee(letter)
@@ -80,10 +79,11 @@ def worddd(Input):
         writee('space')
         
 def pdf_creation(PNG_FILE, flag=False):
+    global name
     rgba = Image.open(PNG_FILE)
     rgb = Image.new('RGB', rgba.size, (255, 255, 255))  # white background
     rgb.paste(rgba, mask=rgba.split())  # paste using alpha channel as mask
-    rgb.save('output.pdf',append=flag)
+    rgb.save(name+'.pdf',append=flag)
 
 
 def needle(*args):
@@ -94,17 +94,18 @@ def needle(*args):
             z=0.5
             
          if n>10 and n%2==0:
-            s_y=s_y+(0.15*s_y)
+            s_y+=(1.05/(6*s_y))
             sa.size_hint=(1,s_y)
             sa.bt2.size_hint=(0.1,0.05/s_y)
             sa.bt2.pos_hint={'x':0.9,'y':(s_y-0.05)/s_y}
-        
+            yh+=0.17
+            yg+=0.17
+            
             
          nam=name+".pdf"
-
         
          if n>10 and n%2==0:
-            s_yy=s_y-(0.2*s_y)
+            s_yy=s_y-(1.05/6*s_y)
          else:
             s_yy=s_y
   
@@ -112,24 +113,14 @@ def needle(*args):
          lab1=Label(color=(0,0,0,1),text=nam,size_hint=(0.5,0.05/s_yy),pos_hint={'x':z,'y':(s_yy-yh)/s_yy})
          sa.add_widget(lab1)
          
-         but=Button(background_normal= "pdf2.png",size_hint=(0.2,0.1/s_yy),pos_hint={'x':z+0.15,'y':(s_yy-yg)/s_yy})
+         but=Button(background_normal= "Icon/pdf.png",size_hint=(0.2,0.1/s_yy),pos_hint={'x':z+0.15,'y':(s_yy-yg)/s_yy})
          sa.add_widget(but)
-           
-            
          n+=1
-         print(n)
-         
-         if n%2==0:
-            yh+=0.17
-            yg+=0.17
-            
-            
-
 #scrren of logo(first)
 class LOGO(FloatLayout):
    def __init__(self,*args,**kwargs):
       super().__init__(*args)
-      self.img=Imag(source="T2H.png",size=(w,h),pos=(0,0))
+      self.img=Imag(source="Icon/T2H.png",size=(w,h),pos=(0,0))
       self.add_widget(self.img)
       
       Clock.schedule_once(self.ss,5/1)
@@ -141,48 +132,29 @@ class LOGO(FloatLayout):
 class FIRST(FloatLayout):
    def __init__(self,*args,**kwargs):
       super().__init__(*args)
-      global pattern
-      pattern="nor"
       
       
       with self.canvas:
                Color(0,0.5,1,1)
                Rectangle(pos=(0,h*0.95),size=(w,h*0.05))
                
-      self.handwritten=CheckBox(group=True,color=(0,0,0,1),pos_hint={'x':0.5,'y':0.85},size_hint=(0.05,0.05))
-      self.add_widget(self.handwritten)
-      self.handwritten.bind(on_active=self.format)
-      
-      self.normal=CheckBox(group=True,color=(0,0,0,1),pos_hint={'x':0.15,'y':0.85},size_hint=(0.05,0.05),active=True)
-      self.add_widget(self.normal)
-      self.normal.bind(on_active=self.format2)
-      
-   
-      
-      self.normall=Label(color=(0,0,0,1),text="Normal",pos_hint={'x':0.25,'y':0.85},size_hint=(0.05,0.05))
-      self.add_widget(self.normall)
-      
-      self.hand=Label(color=(0,0,0,1),text="Handwritten",pos_hint={'x':0.64,'y':0.85},size_hint=(0.05,0.05))
-      self.add_widget(self.hand)
-      
-               
-      self.ti=TextInput(hint_text="Enter yout text here",size_hint=(0.7,0.45),pos_hint={'x':0.15,'y':0.4})
+      self.ti=TextInput(hint_text="Enter yout text here",size_hint=(0.7,0.5),pos_hint={'x':0.15,'y':0.4})
       self.add_widget(self.ti)
       
-      self.bt=Button(font_size=30,text="Generate",size_hint=(0.4,0.07),pos_hint={'x':0.15,'y':0.27},background_normal="button.png")
+      self.bt=Button(font_size=30,text="Generate",size_hint=(0.4,0.07),pos_hint={'x':0.15,'y':0.27},background_normal="Icon/button.png")
       self.add_widget(self.bt)
       self.bt.bind(on_press=self.pop)
       
-      self.btt5=Button(font_size=30,text="Select",size_hint=(0.4,0.07),pos_hint={'x':0.45,'y':0.27},background_normal="button.png")
+      self.btt5=Button(font_size=30,text="Select",size_hint=(0.4,0.07),pos_hint={'x':0.45,'y':0.27},background_normal="Icon/button.png")
       self.add_widget(self.btt5)
       
-      self.bt3=Button(size_hint=(0.1,0.05),pos_hint={'x':0.9,'y':0.95},background_normal="List.png")
+      self.bt3=Button(size_hint=(0.1,0.05),pos_hint={'x':0.9,'y':0.95},background_normal="Icon/list.png")
       self.add_widget(self.bt3)
       
-      self.img1=Imag(source="banner.png",size=(w,h*0.4),pos=(0,-0.37*h))
+      self.img1=Imag(source="Icon/banner.png",size=(w,h*0.4),pos=(0,-0.37*h))
       self.add_widget(self.img1)
       
-      self.bt5=Button(size_hint=(0.1,0.05),pos_hint={'x':0,'y':0.95},background_normal="i.png")
+      self.bt5=Button(size_hint=(0.1,0.05),pos_hint={'x':0,'y':0.95},background_normal="Icon/info.png")
       self.add_widget(self.bt5)
       
       
@@ -193,25 +165,35 @@ class FIRST(FloatLayout):
    def shift(self,*args):
       s.current="3"
       
-   def format(self,value):
-      global pattern
-      pattern="hw"
-      print(value)
-   
-   def format2(self,value):
-      global pattern
-      pattern="nor"
-      print(value)
-      
-      
    def popinfo(self,*args):
       f2=FloatLayout()
       
-      self.label=Label(text="--RAHUL GOTHWAL\n\n--YUGAM SACHDEVA",color=(0,0,0,1),size_hint=(1,1),pos_hint={'x':0,'y':0})
+      self.label=Label(markup=True,halign="center",valign="top",font_size=35,text=""" [b][u]To use this application[/u]:-[/b]
+
+-> Copy the text from source and paste in the "enter 
+text" window on the home screen.
+
+-> Click on the generate button and name your PDF 
+file and save.
+
+-> Your PDF will be generated along with picture of 
+every page in your gallery.
+
+-> Or alternatively you can upload a txt file with text 
+in it and can get a PDF generated.
+
+[u][b]Created by[/u]:-[/b] 
+
+Rahul Gothwal, Yugam Sachdeva
+
+[b][u] Note[/u]:- [/b]
+
+If you face any issue feel free to report issue at: 
+[b]https://bit.ly/T2H-RS[/b]""",color=(0,0,0,1),size_hint=(1,1),pos_hint={'x':0,'y':0})
       f2.add_widget(self.label)
       
       
-      pop1=Popup(title_color=(0,0.5,1,1),background="white.jpeg",content=f2,title="Information",size_hint=(0.8,0.8),pos_hint={'x':0.1,'y':0.1}) 
+      pop1=Popup(title_color=(0,0.5,1,1),background="Icon/white.jpeg",content=f2,title="Information",size_hint=(0.8,0.8),pos_hint={'x':0.1,'y':0.1}) 
       
       pop1.open()
       
@@ -254,12 +236,12 @@ class FIRST(FloatLayout):
          self.ti1=TextInput(hint_text="Enter PDF name",size_hint=(0.8,0.2),pos_hint={'x':0.1,'y':0.6})
          ff.add_widget(self.ti1)
       
-         self.bt1=Button(text="Done",size_hint=(0.3,0.2),pos_hint={'x':0.35,'y':0.1},background_color=(0,0.5,1,1))
+         self.bt1=Button(text="Done",size_hint=(0.4,0.3),pos_hint={'x':0.3,'y':0.08},background_normal="Icon/button.png")
          ff.add_widget(self.bt1)
          self.bt1.bind(on_press=self.pdfgene)
          
          
-         pop=Popup(auto_dismiss=False,title_color=(0,0.5,1,1),background="white.jpeg",content=ff,title="Save PDF",size_hint=(0.8,0.3),pos_hint={'x':0.1,'y':0.3}) 
+         pop=Popup(auto_dismiss=False,title_color=(0,0.5,1,1),background="Icon/white.jpeg",content=ff,title="Save PDF",size_hint=(0.8,0.3),pos_hint={'x':0.1,'y':0.3}) 
       
          pop.open()
          
@@ -276,16 +258,16 @@ class FIRST(FloatLayout):
       self.ll=Label(color=(0,0,0,1),text="Do you want to covert this Doc into PDF?",size_hint=(1,0.5),pos_hint={'x':0,'y':0.5})
       f.add_widget(self.ll)
       
-      self.yes=Button(text="Yes",font_size=30,size_hint=(0.4,0.25),pos_hint={'x':0.1,'y':0.2}, background_normal="button.png")
+      self.yes=Button(text="Yes",font_size=30,size_hint=(0.4,0.25),pos_hint={'x':0.1,'y':0.2}, background_normal="Icon/button.png")
       f.add_widget(self.yes)
       self.yes.bind(on_press=self.pop)
       
-      self.no=Button(text="No",font_size=30,size_hint=(0.4,0.25),pos_hint={'x':0.5,'y':0.2}, background_normal="button.png")
+      self.no=Button(text="No",font_size=30,size_hint=(0.4,0.25),pos_hint={'x':0.5,'y':0.2}, background_normal="Icon/button.png")
       f.add_widget(self.no)
       self.no.bind(on_press=self.denied)
       
       
-      pop4=Popup(background="white.jpeg",title="Confirmation",title_color=(0,0.5,1,1),content=f,size_hint=(0.8,0.3),pos_hint={'x':0.1,'y':0.35})
+      pop4=Popup(background="Icon/white.jpeg",title="Confirmation",title_color=(0,0.5,1,1),content=f,size_hint=(0.8,0.3),pos_hint={'x':0.1,'y':0.35})
       self.add_widget(pop4)
       
       for i in [".txt"]:
@@ -299,11 +281,11 @@ class FIRST(FloatLayout):
       
                          
    def denied(self,*args):
-      global pop4
+      global pop4,name
       self.remove_widget(pop4)
           
    def pdfgene(self,instance):
-      global BG,sizeofSheet,allowedChars,gap,name,d,pop,pattern
+      global BG,sizeofSheet,allowedChars,gap,name,sa,d,pop
       c=instance.text
       daty=os.listdir('.')
       pdf=self.ti1.text+".pdf"
@@ -325,57 +307,41 @@ class FIRST(FloatLayout):
                
             
              
-           
+           data = date.replace('\n', '')
            name=self.ti1.text
-           
-           if pattern=="hw":
-              data = date.replace('\n', '')
             
-              with open(name+".pdf", 'w') as file:
-                 pass
+           with open(name+".pdf", 'w') as file:
+              pass
+              
+           l = len(data)
+           nn = len(data) // 600
+           chunks, chunk_size = len(data), len(data) // (nn + 1)
+           p = [data[i:i + chunk_size] for i in range(0, chunks, chunk_size)]
+      
+           for i in range(0, len(p)):
+              worddd(p[i])
+              writee('\n')
+              BG.save('%doutt.png' % i)
+              BG1 = Image.open("Font/base.png")
+              BG = BG1
+              gap = 0
+              _ = 0
                  
-              l = len(data)
-              nn = len(data) // 600
-              chunks, chunk_size = len(data), len(data) // (nn + 1)
-              p = [data[i:i + chunk_size] for i in range(0, chunks, chunk_size)]
-         
-              for i in range(0, len(p)):
-                 worddd(p[i])
-                 writee('\n')
-                 BG.save('%doutt.png' % i)
-                 BG1 = Image.open("myfont/bg.png")
-                 BG = BG1
-                 gap = 0
-                 _ = 0
-                    
          except ValueError as E:
-              print("{}\nTry again".format(E))
+            print("{}\nTry again".format(E))
+              
+         imagelist = []
+         for i in range(0, len(p)):
+            imagelist.append('%doutt.png' % i)
+         try:      
+            pdf_creation(imagelist.pop(0)[20])
+      
+      
+            for PNG_FILE in imagelist:
+               pdf_creation(PNG_FILE, flag=True)
+         except:
+            pass
                  
-              imagelist = []
-              for i in range(0, len(p)):
-                  imagelist.append('%doutt.png' % i)
-              try:      
-                  pdf_creation(imagelist.pop(0)[20])
-         
-                  for PNG_FILE in imagelist:
-                     pdf_creation(PNG_FILE ,flag=True)
-              except:
-                  pass
-               
-         else:
-            pdf = FPDF()
-            pdf.add_page() 
-
-
-            pdf.set_font("Arial", size = 15) 
-
-            f =date
-
-
-            for x in f: 
-            	pdf.cell(200, 10, txt = x, ln = 1, align = 'C') 
-
-            pdf.output(name+".pdf")         
          needle()
          self.ti.text=""
          s.current="3"
@@ -407,7 +373,7 @@ class PDFLIST(ScrollView):
       with sa.canvas:
                Color(0,0.5,1,1)
                Rectangle(pos=(0,(s_y-0.05)*h),size=(w,h*0.05))   
-      sa.bt2=Button(size_hint=(0.1,0.05/s_y),pos_hint={'x':0.9,'y':(s_y-0.05)/s_y},background_normal="new2.png")
+      sa.bt2=Button(size_hint=(0.1,0.05/s_y),pos_hint={'x':0.9,'y':(s_y-0.05)/s_y},background_normal="Icon/add.png")
       sa.add_widget(sa.bt2)
       sa.bt2.bind(on_press=self.change)
       
@@ -440,7 +406,7 @@ class PDFLIST(ScrollView):
          else:
             z=0.65
             
-         sa.but=Button(background_normal="pdf2.png",size_hint=(0.2,0.1/s_y),pos_hint={'x':z,'y':(s_y-yg)/s_y})
+         sa.but=Button(background_normal="Icon/pdf.png",size_hint=(0.2,0.1/s_y),pos_hint={'x':z,'y':(s_y-yg)/s_y})
          sa.add_widget(sa.but)
          if i%2!=0:
             yg=yg+0.17
