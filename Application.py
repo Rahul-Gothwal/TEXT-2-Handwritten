@@ -189,7 +189,7 @@ Rahul Gothwal, Yugam Sachdeva
 [b][u] Note[/u]:- [/b]
 
 If you face any issue feel free to report issue at: 
-[b]https://bit.ly/T2H-RS[/b]""",color=(0,0,0,1),size_hint=(1,1),pos_hint={'x':0,'y':0})
+[b]https://bit.ly/T2H-RIS[/b]""",color=(0,0,0,1),size_hint=(1,1),pos_hint={'x':0,'y':0})
       f2.add_widget(self.label)
       
       
