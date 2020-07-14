@@ -4,6 +4,7 @@ This is a mobile app which convert text to *handwritten text* and generate a PDF
 
 This app can come handy when you have to copy paste your assignment from internet but don't wanna waste your time writing it all down.
 
+![Version](https://img.shields.io/badge/version-1.0-yellowgreen)
 ![Issue](https://img.shields.io/github/issues/Rahul-Gothwal/TEXT-2-Handwritten)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&logo=github)](https://github.com/Rahul-Gothwal/TEXT-2-Handwritten/pulls)
 ![Time](https://img.shields.io/date/1594684800?color=orange&label=release%20time)
