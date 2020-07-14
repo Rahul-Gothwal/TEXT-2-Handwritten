@@ -6,6 +6,7 @@ This app can come handy when you have to copy paste your assignment from interne
 
 ![Issue](https://img.shields.io/github/issues/Rahul-Gothwal/TEXT-2-Handwritten)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&logo=github)](https://github.com/Rahul-Gothwal/TEXT-2-Handwritten/pulls)
+![Time](https://img.shields.io/date/1594684800?color=orange&label=release%20time)
 
 ## How to use
 * Copy the text you want to convert to handwritten
