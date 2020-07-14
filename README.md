@@ -11,7 +11,7 @@ This app can come handy when you have to copy paste your assignment from interne
 * Also you can input a txt file from **Select** button
 * The text inside TXT file will be converted to handwritten PDF (Note that only .txt extension files are allowed)
 
-![DEMO PIC](https://raw.githubusercontent.com/muscleblazerahul/githubimg/master/demo.png?token=AMNYDLNC7TBWZQG3ERB2RKK7BW25G)
+![DEMO PIC](https://gmd.netlify.app/demo.png)
 
 ---
 ## Important Note
