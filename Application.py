@@ -189,7 +189,7 @@ Rahul Gothwal, Yugam Sachdeva
 [b][u] Note[/u]:- [/b]
 
 If you face any issue feel free to report issue at: 
-[b]https://bit.ly/T2H-RS[/b]""",color=(0,0,0,1),size_hint=(1,1),pos_hint={'x':0,'y':0})
+[b]https://bit.ly/T2H-RIS[/b]""",color=(0,0,0,1),size_hint=(1,1),pos_hint={'x':0,'y':0})
       f2.add_widget(self.label)
       
       
@@ -321,7 +321,7 @@ If you face any issue feel free to report issue at:
            for i in range(0, len(p)):
               worddd(p[i])
               writee('\n')
-              BG.save('%doutt.png' % i)
+              BG.save('%doutput.png' % i)
               BG1 = Image.open("Font/base.png")
               BG = BG1
               gap = 0
@@ -332,7 +332,7 @@ If you face any issue feel free to report issue at:
               
          imagelist = []
          for i in range(0, len(p)):
-            imagelist.append('%doutt.png' % i)
+            imagelist.append('%doutput.png' % i)
          try:      
             pdf_creation(imagelist.pop(0)[20])
       
