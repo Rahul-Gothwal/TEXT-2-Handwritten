@@ -1,4 +1,4 @@
-# Text-2-Handwritten
+# Text-2-Handwritten [![License](https://img.shields.io/github/license/Rahul-Gothwal/TEXT-2-Handwritten)](https://github.com/Rahul-Gothwal/TEXT-2-Handwritten/blob/master/LICENSE)
 
 This is a mobile app which convert text to *handwritten text* and generate a PDF as output.
 
