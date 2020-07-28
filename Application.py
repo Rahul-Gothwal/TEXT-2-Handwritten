@@ -92,22 +92,26 @@ def needle(*args):
             z=0
          else:
             z=0.5
-            
+ 
          if n>10 and n%2==0:
-            s_y+=(1.05/(6*s_y))
+            s_y+=0.17/s_y
+            sa.r.size=(w,0.05*h)
+            sa.r.pos=(0,(s_y-0.05)*h)
             sa.size_hint=(1,s_y)
             sa.bt2.size_hint=(0.1,0.05/s_y)
             sa.bt2.pos_hint={'x':0.9,'y':(s_y-0.05)/s_y}
+            
+            
+            
+            
+         if n%2==0:
             yh+=0.17
             yg+=0.17
             
             
          nam=name+".pdf"
-        
-         if n>10 and n%2==0:
-            s_yy=s_y-(1.05/6*s_y)
-         else:
-            s_yy=s_y
+       
+         s_yy=s_y
   
             
          lab1=Label(color=(0,0,0,1),text=nam,size_hint=(0.5,0.05/s_yy),pos_hint={'x':z,'y':(s_yy-yh)/s_yy})
@@ -168,7 +172,7 @@ class FIRST(FloatLayout):
    def popinfo(self,*args):
       f2=FloatLayout()
       
-      self.label=Label(markup=True,halign="center",valign="top",font_size=35,text=""" [b][u]To use this application[/u]:-[/b]
+      self.label=Label(markup=True,halign="center",valign="top",font_size=25,text=""" [b][u]To use this application[/u]:-[/b]
 
 -> Copy the text from source and paste in the "enter 
 text" window on the home screen.
@@ -353,6 +357,7 @@ class PDFLIST(ScrollView):
       global s_y,n,yh,yg,sa
       super().__init__(*args)
       
+      
 
       dat=os.listdir('.')
       data=[]
@@ -366,13 +371,13 @@ class PDFLIST(ScrollView):
       if n<10:
          pass
       else:
-         s_y=s_y+(n-10)/12
+         s_y=s_y+(n-10)/11
          
       sa.size_hint=(1,s_y)
       
       with sa.canvas:
                Color(0,0.5,1,1)
-               Rectangle(pos=(0,(s_y-0.05)*h),size=(w,h*0.05))   
+               sa.r=Rectangle(pos=(0,(s_y-0.05)*h),size=(w,h*0.05))   
       sa.bt2=Button(size_hint=(0.1,0.05/s_y),pos_hint={'x':0.9,'y':(s_y-0.05)/s_y},background_normal="Icon/add.png")
       sa.add_widget(sa.bt2)
       sa.bt2.bind(on_press=self.change)
@@ -410,9 +415,8 @@ class PDFLIST(ScrollView):
          sa.add_widget(sa.but)
          if i%2!=0:
             yg=yg+0.17
+
          
-      
- 
    def change(self,*args):
       s.current="2"
 
