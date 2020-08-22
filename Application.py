@@ -92,19 +92,32 @@ def needle(*args):
             z=0
          else:
             z=0.5
- 
+         
          if n>10 and n%2==0:
-            s_y+=0.17/s_y
-            sa.r.size=(w,0.05*h)
-            sa.r.pos=(0,(s_y-0.05)*h)
+            s_y+=0.18
+            
             sa.size_hint=(1,s_y)
-            sa.bt2.size_hint=(0.1,0.05/s_y)
-            sa.bt2.pos_hint={'x':0.9,'y':(s_y-0.05)/s_y}
-            
-            
-            
-            
-         if n%2==0:
+                          
+            yt=0.16
+            num=1
+            for i in btnlist:
+                i.size_hint_y=0.1/s_y
+                i.pos_hint=({"y":(s_y-yt)/s_y})
+                if num%2==0:
+                   yt+=0.17
+                num+=1
+                
+            yz=0.2
+            num=1
+            for j in lbllist:
+                j.size_hint_y=0.05/s_y
+                j.pos_hint=({"y":(s_y-yz)/s_y})
+                if num%2==0:
+                   yz+=0.17
+                num+=1
+                
+                
+         if n%2==0 and n!=0:
             yh+=0.17
             yg+=0.17
             
@@ -116,9 +129,11 @@ def needle(*args):
             
          lab1=Label(color=(0,0,0,1),text=nam,size_hint=(0.5,0.05/s_yy),pos_hint={'x':z,'y':(s_yy-yh)/s_yy})
          sa.add_widget(lab1)
+         lbllist.append(lab1)
          
          but=Button(background_normal= "Icon/pdf.png",size_hint=(0.2,0.1/s_yy),pos_hint={'x':z+0.15,'y':(s_yy-yg)/s_yy})
          sa.add_widget(but)
+         btnlist.append(but)
          n+=1
 #scrren of logo(first)
 class LOGO(FloatLayout):
@@ -172,7 +187,7 @@ class FIRST(FloatLayout):
    def popinfo(self,*args):
       f2=FloatLayout()
       
-      self.label=Label(markup=True,halign="center",valign="top",font_size=25,text=""" [b][u]To use this application[/u]:-[/b]
+      self.label=Label(markup=True,halign="center",valign="top",font_size=0.0185*h,text=""" [b][u]To use this application[/u]:-[/b]
 
 -> Copy the text from source and paste in the "enter 
 text" window on the home screen.
@@ -352,44 +367,48 @@ If you face any issue feel free to report issue at:
          
          
  #screen for list of pdf        
-class PDFLIST(ScrollView):
+class PDFLIST(FloatLayout):
    def __init__(self,*args,**kwargs):
-      global s_y,n,yh,yg,sa
+      global s_y,n,yh,yg,sa,btnlist,lbllist
+      btnlist=[]
+      lbllist=[]
       super().__init__(*args)
+      sel=ScrollView()
+      self.add_widget(sel)
       
       
-
       dat=os.listdir('.')
       data=[]
       for item in range(len(dat)):
          if dat[item].endswith(".pdf"):
             data.append(dat[item])
       
+      
       n=len(data)
       sa=FloatLayout()
-      s_y=1
-      if n<10:
-         pass
+      s_y=1.02
+      if n<11:
+          pass
       else:
          s_y=s_y+(n-10)/11
          
       sa.size_hint=(1,s_y)
       
-      with sa.canvas:
+      with self.canvas:
                Color(0,0.5,1,1)
-               sa.r=Rectangle(pos=(0,(s_y-0.05)*h),size=(w,h*0.05))   
-      sa.bt2=Button(size_hint=(0.1,0.05/s_y),pos_hint={'x':0.9,'y':(s_y-0.05)/s_y},background_normal="Icon/add.png")
-      sa.add_widget(sa.bt2)
-      sa.bt2.bind(on_press=self.change)
+               Rectangle(pos=(0,0.95*h),size=(w,h*0.05))   
+      self.bt2=Button(size_hint=(0.1,0.05),pos_hint={'x':0.9,'y':0.95},background_normal="Icon/add.png")
+      self.add_widget(self.bt2)
+      self.bt2.bind(on_press=self.change)
       
       
       
-      self.do_scroll_x: False
-      self.do_scroll_y: True
-      self.scroll_y=1
-      self.bar_width=5
-      self.size=Window.size 
-      self.add_widget(sa)
+      sel.do_scroll_x: False
+      sel.do_scroll_y: True
+      sel.scroll_y=1
+      sel.bar_width=5
+      sel.size=Window.size 
+      sel.add_widget(sa)
       
       
       yh=0.2
@@ -398,11 +417,13 @@ class PDFLIST(ScrollView):
             z=0
          else:
             z=0.5
-            
-         sa.lab=Label(color=(0,0,0,1),text=data[i],size_hint=(0.5,0.05/s_y),pos_hint={'x':z,'y':(s_y-yh)/s_y})
-         sa.add_widget(sa.lab)
+         
+         lb=Label(color=(0,0,0,1),text=data[i],size_hint=(0.5,0.05/s_y),pos_hint={'x':z,'y':(s_y-yh)/s_y})
+         sa.add_widget(lb)
          if i%2!=0:
             yh=yh+0.17
+            
+         lbllist.append(lb)
             
       yg=0.16
       for i in range(n):
@@ -410,11 +431,15 @@ class PDFLIST(ScrollView):
             z=0.15
          else:
             z=0.65
-            
-         sa.but=Button(background_normal="Icon/pdf.png",size_hint=(0.2,0.1/s_y),pos_hint={'x':z,'y':(s_y-yg)/s_y})
-         sa.add_widget(sa.but)
+          
+         btn=Button(background_normal=  "Icon/pdf.png",size_hint=(0.2,0.1/s_y),pos_hint={'x':z,'y':(s_y-yg)/s_y})
+         sa.add_widget(btn)
          if i%2!=0:
-            yg=yg+0.17
+            yg=yg+0.17 
+            
+                   
+         btnlist.append(btn)       
+      
 
          
    def change(self,*args):
